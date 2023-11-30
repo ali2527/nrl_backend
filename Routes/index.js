@@ -19,6 +19,7 @@ router.use('/order',require("./Order"))
 router.use('/donation',require("./Donation"))
 router.use('/payment',require("./Payment"))
 router.use('/product',require("./Product"))
+router.use('/notification',require("./Notification"))
 
 //admin routes
 router.use('/admin/auth', require('./Admin/AdminAuth'))

@@ -6,17 +6,18 @@ const mongoose = require("mongoose")
 
   exports.sendNotificationToAdmin = async (title,content, type="NOTIFICATION") => {
   
+
+
     // Check if the user is connected to a socket room with their ID
     
     const io = getIO();
     // Get the socket associated with the room
     const userSocket = io.sockets.in("admin");
   
+
     if (userSocket) {
       // Emit a custom event for the notification
       userSocket.emit("notification", { title,content,isRead:false });
-      userSocket.emit("notificationAll", { title,content,isRead:false });
-  
   
       // Save the notification to the database
       try {

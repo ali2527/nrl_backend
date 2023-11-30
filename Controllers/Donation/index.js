@@ -11,6 +11,7 @@ const { generateString } = require("../../Helpers/index");
 const { errorHandler } = require("../../Helpers/errorHandler");
 const { generateEmail } = require("../../Helpers/email");
 const sanitizeUser = require("../../Helpers/sanitizeUser");
+const { sendNotificationToAdmin} = require('../../Helpers/notification')
 const {
   createResetToken,
   validateResetToken,
@@ -31,6 +32,12 @@ exports.makeDonation = async (req, res) => {
   
       await donation.save();
   
+
+      const title = "New Donation Made";
+      const content = `A new donation of $ ${amount} has been made`;
+      sendNotificationToAdmin(title, content);
+
+      
       return res.status(200).json(
         ApiResponse(
           { donation },
