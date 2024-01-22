@@ -2,6 +2,8 @@
 const User = require("../../Models/User");
 const State = require("../../Models/State");
 const fs = require("fs")
+const { sendNotificationToAdmin} = require('../../Helpers/notification')
+
 
 //Helpers
 const { generateToken } = require("../../Helpers/index");
@@ -32,6 +34,11 @@ exports.addState = async (req, res) => {
   
       await state.save();
   
+      const title = "New State Addes";
+      const content = `A new state of name ${name} has been added`;
+      sendNotificationToAdmin(title, content);
+
+
       return res.status(200).json(
         ApiResponse(
           { State },

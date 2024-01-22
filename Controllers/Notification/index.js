@@ -14,7 +14,7 @@ const dayjs = require("dayjs");
 
 
 
-exports.getAllAdminNotifications = async (req, res) => {
+exports.getAllNotifications = async (req, res) => {
   try {
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
@@ -45,15 +45,6 @@ exports.getAllAdminNotifications = async (req, res) => {
         finalAggregate.push({
           $match: {
             isRead: req.query.status == "read" ? true : false,
-          },
-        });
-      }
-  
-
-      if (type) {
-        finalAggregate.push({
-          $match: {
-            type: req.query.type,
           },
         });
       }
@@ -109,7 +100,7 @@ exports.getNotificationById = async (req, res) => {
 };
 
 
-exports.getUnreadAdminNotifications = async (req, res) => {
+exports.getAllUnreadNotifications = async (req, res) => {
   try {
     let finalAggregate = [];
 
@@ -127,7 +118,6 @@ exports.getUnreadAdminNotifications = async (req, res) => {
         : Notification.aggregate([]);
 
     const totalUnreadCount = await Notification.countDocuments({
-      isAdmin:true,
       isRead: false,
     });
 

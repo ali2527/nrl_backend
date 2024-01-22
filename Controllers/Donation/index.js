@@ -33,11 +33,7 @@ exports.makeDonation = async (req, res) => {
       await donation.save();
   
 
-      const title = "New Donation Made";
-      const content = `A new donation of $ ${amount} has been made`;
-      sendNotificationToAdmin(title, content);
-
-      
+     
       return res.status(200).json(
         ApiResponse(
           { donation },

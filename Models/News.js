@@ -6,23 +6,33 @@ const Schema = mongoose.Schema;
 const newsSchema = new Schema(
   {
     title: {
-        type: String,
-        required:true,
-        default: "",
+      type: String,
+      required: true,
+      default: "",
     },
-    description:{
-        type: String,
-        required:true,
-        default: "",
+    description: {
+      type: String,
+      required: false,
+      default: "",
     },
-    date:{
-        type: Date,
-        required:true,
-        default: new Date(),
+    thumbnail: {
+      type: String,
+      required: false,
+      default: "",
     },
-    iframeID:{
-        type: String,
-        required:true,
+    channel: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: new Date(),
+    },
+    videoID: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

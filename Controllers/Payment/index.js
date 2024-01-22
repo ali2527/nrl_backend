@@ -4,6 +4,9 @@ const Payment = require("../../Models/Payment");
 const Order = require("../../Models/Order");
 const Donation = require("../../Models/Donation")
 const fs = require("fs")
+const { sendNotificationToAdmin} = require('../../Helpers/notification')
+
+
 
 //Helpers
 const { generateToken } = require("../../Helpers/index");
@@ -441,6 +444,12 @@ const {
       })
 
       await payment.save()
+
+      const title = "New Donation Made";
+      const content = `A new donation of $ ${amount} has been made`;
+      sendNotificationToAdmin(title, content);
+
+
 
       return res.json(ApiResponse({}, "Thankyou for Your Donation", true));
 

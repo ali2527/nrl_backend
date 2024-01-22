@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 
 
   exports.sendNotificationToAdmin = async (title,content, type="NOTIFICATION") => {
-  
+
 
 
     // Check if the user is connected to a socket room with their ID
@@ -13,6 +13,9 @@ const mongoose = require("mongoose")
     const io = getIO();
     // Get the socket associated with the room
     const userSocket = io.sockets.in("admin");
+
+
+    console.log(userSocket)
   
 
     if (userSocket) {
@@ -24,7 +27,7 @@ const mongoose = require("mongoose")
         const notification = new Notification({
             title,
           content: content,
-          isAdmin: true,
+          isRead: false,
           type,
         });
         await notification.save();

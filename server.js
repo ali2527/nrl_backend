@@ -10,6 +10,7 @@ const { Server } = require("socket.io");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
+require("./Helpers/cronJob.js");
 require("dotenv").config();
 const { initializeWebSocket } = require("./config/socket");
 
@@ -37,22 +38,22 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 
-const local = false;
-let credentials = {};
+// const local = false;
+// let credentials = {};
 
-if (local) {
-  credentials = {
-    key: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.key", "utf8"),
-    cert: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.crt", "utf8"),
-    ca: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.ca")
-  };
-} else {
-  credentials = {
-    key: fs.readFileSync("./certs/ssl.key"),
-    cert: fs.readFileSync("./certs/ssl.crt"),
-    ca: fs.readFileSync("./certs/ca-bundle")
-  };
-}
+// if (local) {
+//   credentials = {
+//     key: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.key", "utf8"),
+//     cert: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.crt", "utf8"),
+//     ca: fs.readFileSync("/etc/apache2/ssl/onlinetestingserver.ca")
+//   };
+// } else {
+//   credentials = {
+//     key: fs.readFileSync("./certs/ssl.key"),
+//     cert: fs.readFileSync("./certs/ssl.crt"),
+//     ca: fs.readFileSync("./certs/ca-bundle")
+//   };
+// }
 
 
 
@@ -82,8 +83,8 @@ app.get("/", (req, res) => {
   res.send("NRL Server Running");
 });
 
-httpsServer.listen(3003, ()=>{
-  console.log(`Listening on port ${3003}`);
+httpsServer.listen(7001, ()=>{
+  console.log(`Listening on port ${7001}`);
 })
 
 

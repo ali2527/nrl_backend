@@ -18,7 +18,7 @@ const {
 
 //addProduct
 exports.addProduct = async (req, res) => {
-  const {title, description, price, stock, image, category, variations } =
+  const {title, description, price, stock, category, variations } =
     req.body;
   
 
@@ -55,6 +55,8 @@ exports.addProduct = async (req, res) => {
   }
 };
 
+
+//get All product
 exports.getAllProducts = async (req, res) => {
   try {
     const page = req.query.page || 1;
@@ -153,49 +155,6 @@ exports.getProductByCategory = async (req, res) => {
 };
 
 //update product
-// exports.updateProduct = async (req, res) => {
-    
-    
-//     console.log(req.body);
-//     console.log(req.files)
-//   try {
-      
-      
-   
-
-// let data = {...req.body,variations:JSON.parse(req.body.variations), gallery:req.files.gallery ? req.files.gallery.map(item => item.filename) : "",}
-
-//     let product = await Product.findByIdAndUpdate(req.params.id,data, {
-//       new: true,
-//     });
-//     if (!product) {
-//       return res.json(ApiResponse({}, "No product found", false));
-//     }
-    
-//      if (req.body.oldImages && req.body.oldImages.length > 0) {
-//          let oldImages = JSON.parse(req.body.oldImages)
-//         oldImages.map(item => {
-//             const filePath = `./Uploads/${item}`;
-//             if(fs.existsSync(filePath)){
-//         fs.unlinkSync(`./Uploads/${item}`);
-//             }
-//         })
-//         let old = product.gallery.filter(image => !oldImages.includes(image));
-//         let newFiles = req.files.gallery.map(item => item.filename)
-        
-//         product.gallery = [...old,...newFiles]
-//     }
-    
-//     await product.save();
-    
-    
-//     return res.json(ApiResponse(product, "Product updated successfully"));
-//   } catch (error) {
-//     return res.json(ApiResponse({}, error.message, false));
-//   }
-// };
-
-
 exports.updateProduct = async (req, res) => {
   try {
       let product = await Product.findById(req.params.id);
@@ -233,9 +192,6 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-
-
-
 // Delete a product
 exports.deleteProduct = async (req, res) => {
   try {
@@ -257,6 +213,7 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
+//purchase product
 exports.purchaseProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndRemove(req.params.id);

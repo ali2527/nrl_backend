@@ -7,27 +7,22 @@ const notificationSchema = new Schema(
   {
     title: {
       type: String,
-      required:true,
+      required: true,
       default: "",
     },
     content: {
-        type: String,
-        required:false,
-        default: "",
-      },
-      assignee: {
-        type: mongoose.Schema.Types.ObjectId,
-        refPath: "recieverType",
-      },
-      recieverType: {
-        type: String,
-        enum: ["user", "coach"],
-      },
-    type:{
-        type:String,
-        enum:["ALERT","ANNOUNCEMENT","NOTIFICATION"],
-        default:"NOTIFICATION"
-    }
+      type: String,
+      required: false,
+      default: "",
+    },
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
+    type: {
+      type: String,
+      default: "NOTIFICATION",
+    },
   },
   { timestamps: true }
 );

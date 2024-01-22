@@ -9,6 +9,8 @@ const { validateToken } = require("../../Helpers/index");
 const { generateString } = require("../../Helpers/index");
 const { errorHandler } = require("../../Helpers/errorHandler");
 const { generateEmail } = require("../../Helpers/email");
+const { sendNotificationToAdmin} = require('../../Helpers/notification')
+
 const sanitizeUser = require("../../Helpers/sanitizeUser");
 const {
   createResetToken,
@@ -45,6 +47,10 @@ exports.signup = async (req, res) => {
     });
 
     await user.save();
+
+    const title = "New User Signup";
+    const content = `A new user has signed up on the app`;
+    sendNotificationToAdmin(title, content);
 
     return res
       .status(200)

@@ -1,12 +1,12 @@
 const express = require("express")
-const {getAllAdminNotifications,getUnreadAdminNotifications,toggleNotification,getNotificationById} = require("../../Controllers/Notification");
+const {getAllNotifications,getAllUnreadNotifications,toggleNotification,getNotificationById} = require("../../Controllers/Notification");
 const router = express.Router()
 const { authenticatedRoute,adminRoute } = require("../../Middlewares/auth")
 
 
-router.post("/toggleNotification/:id",authenticatedRoute, toggleNotification);
+router.get("/getAllNotifications",authenticatedRoute,getAllNotifications);
+router.get("/getAllUnreadNotifications",authenticatedRoute,getAllUnreadNotifications)
 router.get("/getNotificationById/:id",authenticatedRoute, getNotificationById);
-router.get("/getAllAdminNotifications",authenticatedRoute,getAllAdminNotifications);
-router.get("/getUnreadAdminNotifications",authenticatedRoute,getUnreadAdminNotifications)
+router.post("/toggleNotification/:id",authenticatedRoute, toggleNotification);
 
 module.exports = router

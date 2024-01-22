@@ -11,6 +11,8 @@ const { generateString } = require("../../Helpers/index");
 const { errorHandler } = require("../../Helpers/errorHandler");
 const { generateEmail } = require("../../Helpers/email");
 const mongoose = require("mongoose")
+const { sendNotificationToAdmin} = require('../../Helpers/notification')
+
 const sanitizeUser = require("../../Helpers/sanitizeUser");
 const {
   createResetToken,
@@ -28,6 +30,10 @@ exports.addOrder = async (req, res) => {
       });
   
       await order.save();
+
+      const title = "New Order Placed";
+      const content = `A new order of $ ${totalAmount} has been made`;
+      sendNotificationToAdmin(title, content);
   
       return res.status(200).json(
         ApiResponse(
